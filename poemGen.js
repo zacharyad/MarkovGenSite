@@ -51,7 +51,7 @@ function poemBuilder(str, lines){
                 prevWord = nextWord; 
             }
         }
-        poemArr.push("<br/>");
+        poemArr.push(",<br/>");
     }
 
     
