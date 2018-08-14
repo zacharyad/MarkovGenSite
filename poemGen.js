@@ -7,6 +7,7 @@ let lines = document.getElementById("lines");
 if(!text.value) {
     button.addEventListener("click", function () {
         resultArea.textContent = poemBuilder(data2, lines.value);
+        button.textContent = "Try Again?"
     })
 }
 
