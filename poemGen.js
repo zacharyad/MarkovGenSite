@@ -1,25 +1,24 @@
-//this will be the text area field captured value
+//captured elements
 let text = document.getElementById("textArea");
 let resultArea = document.getElementById("resultArea");
 let button = document.getElementById("submit");
 let lines = document.getElementById("lines");
+let defaultTxt = "It started before I was born. My biological mother was a young, unwed college graduate student, and she decided to put me up for adoption. She felt very strongly that I should be adopted by college graduates, so everything was all set for me to be adopted at birth by a lawyer and his wife. Except that when I popped out they decided at the last minute that they really wanted a girl. So my parents, who were on a waiting list, got a call in the middle of the night asking: We have an unexpected baby boy; do you want him They said: Of course My biological mother later found out that my mother had never graduated from college and that my father had never graduated from high school. She refused to sign the final adoption papers. She only relented a few months later when my parents promised that I would someday go to college. And 17 years later I did go to college. But I naively chose a college that was almost as expensive as Stanford, and all of my working-class parents savings were being spent on my college tuition. After six months, I couldn’t see the value in it. I had no idea what I wanted to do with my life and no idea how college was going to help me figure it out. And here I was spending all of the money my parents had saved their entire life. So I decided to drop out and trust that it would all work out OK. It was pretty scary at the time, but looking back it was one of the best decisions I ever made. The minute I dropped out I could stop taking the required classes that didn’t interest me, and begin dropping in on the ones that looked interesting. It wasn’t all romantic. I didn’t have a dorm room, so I slept on the floor in friends’ rooms, I returned Coke bottles for the 5¢ deposits to buy food with, and I would walk the 7 miles across town every Sunday night to get one good meal a week at the Hare Krishna temple. I loved it. And much of what I stumbled into by following my curiosity and intuition turned out to be priceless later on. Let me give you one example: Reed College at that time offered perhaps the best calligraphy instruction in the country. Throughout the campus every poster, every label on every drawer, was beautifully hand calligraphed. Because I had dropped out and didn’t have to take the normal classes, I decided to take a calligraphy class to learn how to do this. I learned about serif and sans serif typefaces, about varying the amount of space between different letter combinations, about what makes great typography great. It was beautiful, historical, artistically subtle in a way that science can’t capture, and I found it fascinating.";
 
+//listening for no supplied text, and then executing with default text
 if(!text.value) {
     button.addEventListener("click", function () {
-        resultArea.textContent = poemBuilder(data2, lines.value);
+        resultArea.textContent = poemBuilder(defaultTxt, lines.value);
         button.textContent = "Try Again?"
-    })
+    });
 }
-
+//listening for supplied text and execution
 button.addEventListener("click", function () {
     resultArea.textContent = poemBuilder(text.value, lines.value);
     button.textContent = "Try Again?"
 })
 
-let data2 = "It started before I was born. My biological mother was a young, unwed college graduate student, and she decided to put me up for adoption. She felt very strongly that I should be adopted by college graduates, so everything was all set for me to be adopted at birth by a lawyer and his wife. Except that when I popped out they decided at the last minute that they really wanted a girl. So my parents, who were on a waiting list, got a call in the middle of the night asking: We have an unexpected baby boy; do you want him They said: Of course My biological mother later found out that my mother had never graduated from college and that my father had never graduated from high school. She refused to sign the final adoption papers. She only relented a few months later when my parents promised that I would someday go to college. And 17 years later I did go to college. But I naively chose a college that was almost as expensive as Stanford, and all of my working-class parents savings were being spent on my college tuition. After six months, I couldn’t see the value in it. I had no idea what I wanted to do with my life and no idea how college was going to help me figure it out. And here I was spending all of the money my parents had saved their entire life. So I decided to drop out and trust that it would all work out OK. It was pretty scary at the time, but looking back it was one of the best decisions I ever made. The minute I dropped out I could stop taking the required classes that didn’t interest me, and begin dropping in on the ones that looked interesting. It wasn’t all romantic. I didn’t have a dorm room, so I slept on the floor in friends’ rooms, I returned Coke bottles for the 5¢ deposits to buy food with, and I would walk the 7 miles across town every Sunday night to get one good meal a week at the Hare Krishna temple. I loved it. And much of what I stumbled into by following my curiosity and intuition turned out to be priceless later on. Let me give you one example: Reed College at that time offered perhaps the best calligraphy instruction in the country. Throughout the campus every poster, every label on every drawer, was beautifully hand calligraphed. Because I had dropped out and didn’t have to take the normal classes, I decided to take a calligraphy class to learn how to do this. I learned about serif and sans serif typefaces, about varying the amount of space between different letter combinations, about what makes great typography great. It was beautiful, historical, artistically subtle in a way that science can’t capture, and I found it fascinating.";
-
-//console.log(poemBuilder(data1, 6));
-
+//Poem making function
 function poemBuilder(str, lines){
     //check for length,  less than 250 chars meaning the length doesnt have enough diversity for an interesting poem
     if (str.length < 250) {
@@ -53,16 +52,13 @@ function poemBuilder(str, lines){
         }
         poemArr.push(",");
     }
-
-    
     poemArr.splice(-1, 1, ".")
     return poemArr.join(" ");
 }
 
 //___________________________________________________
 //Helper Functions Below
-//___________________________________________________
-
+//---------------------------------------------------
 
 //finds the array with the most words following it, returns string
 function randomKeyInObj(obj){
@@ -72,15 +68,11 @@ function randomKeyInObj(obj){
     return objArr[randomIndex];
 }
 
-//console.log(randomKeyInObj(test))
-
 function randomWordFromArr(keyArray){
     let randomNumBelowlength = Math.floor(Math.random() * keyArray.length);
     //console.log(randomNumBelowlength);
     return keyArray[randomNumBelowlength]
 }
-
-//console.log(randomWordFromArr(test.big))
 
 //returns an Markov Chain of the string in an object
 function strToObj(str){
@@ -106,8 +98,6 @@ function strToObj(str){
     return corpusObj;
 }
 
-//console.log(strToObj(data1))
-
 //removes puncutaion, used in creating obj from string.
 function removePuncs(str){
     let returnStr = "";
@@ -120,16 +110,16 @@ function removePuncs(str){
     return returnStr.toLowerCase();
 }
 
-//console.log(removeComma("this,,,,,,, Sh.,?/<>\!@#$%^&*()dn't have a, comma"))
+//for remaking the first word used and upperCaseing it
 
-function firstWord(word){
-    let newStr = '';
+// function firstWord(word){
+//     let newStr = '';
 
-    for(let i = 0; i < word.length; i++){
-        if(i === 0){
-            newStr += word[i].toUpperCase();
-        } else {
-            newStr += word[i];
-        }
-    }
-}
+//     for(let i = 0; i < word.length; i++){
+//         if(i === 0){
+//             newStr += word[i].toUpperCase();
+//         } else {
+//             newStr += word[i];
+//         }
+//     }
+// }
